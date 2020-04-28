@@ -27,11 +27,11 @@
         }
 
         body {
-            padding-top: 70px;
+            padding-top: 60px;
         }
 
         #mapid {
-            height: 500px;
+            height: 700px;
         }
 
         th {
