@@ -8,7 +8,7 @@
     <div class="row pt-2">
 
         <table class="table table-striped">
-            <thead>
+            <thead class="th-orange">
                 <tr>
                     <th scope="col">No.</th>
                     <th scope="col">Nama pemilik alamat</th>
@@ -28,7 +28,7 @@
                         <td><?= $peta['alamat_lengkap']; ?></td>
                         <td><?= $peta['terakhir_dikunjungi']; ?></td>
                         <td>
-                            <a href="#"><img src="<?= BASEURL; ?>/img/detail-btn.png" width="150" alt=""></a>
+                            <a href="<?= BASEURL;?>/peta/detail/<?= $peta['id_peta'];?>"><img src="<?= BASEURL; ?>/img/detail-btn.png" width="150" alt=""></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -36,5 +36,46 @@
         </table>
 
     </div>
-    <a href="#"><img src="<?= BASEURL;?>/img/btn-add.png" id="fixedbutton"></a>
+    <a href=""><img src="<?= BASEURL;?>/img/btn-add.png" id="fixedbutton"></a>
 </div>
+
+<script>
+    
+    var mapCenter = [-7.983078, 112.635681];
+    var map = L.map('mapid', {
+        center: mapCenter,
+        zoom: 10
+    });
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoicml6a2l0cmlzbmEiLCJhIjoiY2s5aW94N2dtMDR4MTNnbXNldXByenRueSJ9.w1vduTOwMrdBSO7zJsSF4w', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1
+    }).addTo(map);
+    var marker = L.marker(mapCenter).addTo(map);
+
+    function updateMarker(lat, lng) {
+        marker
+            .setLatLng([lat, lng])
+            .bindPopup("Your location :  " + marker.getLatLng().toString())
+            .openPopup();
+        return false;
+    };
+
+    map.on('click', function(e) {
+        $('#latInput').val(e.latlng.lat);
+        $('#lngInput').val(e.latlng.lng);
+        updateMarker(e.latlng.lat, e.latlng.lng);
+    });
+
+
+    var updateMarkerByInputs = function() {
+        return updateMarker($('#latInput').val(), $('#lngInput').val());
+    }
+    $('#latInput').on('input', updateMarkerByInputs);
+    $('#lngInput').on('input', updateMarkerByInputs);
+
+</script>

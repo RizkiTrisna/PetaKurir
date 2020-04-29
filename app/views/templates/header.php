@@ -34,7 +34,11 @@
             height: 700px;
         }
 
-        th {
+        #mapdetail {
+            height: 100%;
+        }
+
+        .th-orange {
             background-color: #FF6F00;
             color: white;
         }
@@ -44,6 +48,28 @@
             bottom: 30px;
             right: 50px;
             width: 80px;
+        }
+
+        .header-detail {
+            background-color: #FF6F00;
+            color: white;
+        }
+
+        .h-500 {
+            height: 500px;
+        }
+
+        #table-detail {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        #table-detail td{
+            padding: 15px;
+        }
+
+        .bolded{
+            font-weight: bold;
         }
     </style>
 
