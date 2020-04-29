@@ -26,9 +26,9 @@
                         <td scope="row"><?= $no++; ?></td>
                         <td><?= $peta['nama_pemilik']; ?></td>
                         <td><?= $peta['alamat_lengkap']; ?></td>
-                        <td><?= $peta['terakhir_dikunjungi']; ?></td>
+                        <td><?= date('d M Y', strtotime($peta['terakhir_dikunjungi'])); ?></td>
                         <td>
-                            <a href="<?= BASEURL;?>/peta/detail/<?= $peta['id_peta'];?>"><img src="<?= BASEURL; ?>/img/detail-btn.png" width="150" alt=""></a>
+                            <a href="<?= BASEURL; ?>/peta/detail/<?= $peta['id_peta']; ?>"><img src="<?= BASEURL; ?>/img/detail-btn.png" width="150" alt=""></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -36,14 +36,117 @@
         </table>
 
     </div>
-    <a href=""><img src="<?= BASEURL;?>/img/btn-add.png" id="fixedbutton"></a>
+    <!-- Button trigger modal -->
+    <!-- <button type="button" style="background: url(<?= BASEURL; ?>/img/btn-add.png)" >
+        
+    </button> -->
+    <a type="button" data-toggle="modal" data-target="#modalTambah"><img src="<?= BASEURL; ?>/img/btn-add.png" id="fixedbutton"></a>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="judulModal">Tambah data peta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="card text-center h-500 ">
+                            <div class="card-header header-detail">
+                                <strong> Lokasi</strong>
+                            </div>
+                            <div class="card-body">
+                                <div id="maptambah"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="card h-500 ">
+                            <div class="card-header header-detail" style="text-align: center;">
+                                <strong> Detail </strong>
+                            </div>
+                            <div class="card-body">
+
+                                <form action="<?= BASEURL; ?>/peta/tambah" method="post">
+                                    <div class="container" style="margin-top: 20px;">
+                                        <div class="form-group row">
+                                            <label for="nama_pemilik" class="col-sm-4 col-form-label">Nama Pemilik Alamat</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="nama_pemilik" id="nama_pemilik">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="alamat_lengkap" class="col-sm-4 col-form-label">Alamat Lengkap</label>
+
+                                            <div class="col-sm-8">
+                                                <textarea class="form-control" id="alamat_lengkap" name="alamat_lengkap" rows="2"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="kota" class="col-sm-4 col-form-label">Kota</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="kota" name="kota">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="provinsi" class="col-sm-4 col-form-label">Provinsi</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="provinsi" id="provinsi">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="nohp" class="col-sm-4 col-form-label">Nomor HP</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="nohp" id="nohp">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="lat" class="col-sm-4 col-form-label">Lat</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="lat" id="lat">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="lon" class="col-sm-4 col-form-label">Lon</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="lon" id="lon">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+                <button type="submit" class="btn btn-primary">Tambah data</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-    
-    var mapCenter = [-7.983078, 112.635681];
-    var map = L.map('mapid', {
-        center: mapCenter,
+    var lokasiTambah = [
+        ["LOCATION_1", 11.8166, 122.0942],
+        ["LOCATION_2", 11.9804, 121.9189],
+        ["LOCATION_3", 10.7202, 122.5621],
+        ["LOCATION_4", 11.3889, 122.6277],
+        ["LOCATION_5", 10.5929, 122.6325]
+    ];
+
+    var mapCenterTambah = [-7.983078, 112.635681];
+    var map = L.map('maptambah', {
+        center: mapCenterTambah,
         zoom: 10
     });
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoicml6a2l0cmlzbmEiLCJhIjoiY2s5aW94N2dtMDR4MTNnbXNldXByenRueSJ9.w1vduTOwMrdBSO7zJsSF4w', {
@@ -55,7 +158,15 @@
         tileSize: 512,
         zoomOffset: -1
     }).addTo(map);
-    var marker = L.marker(mapCenter).addTo(map);
+    var marker = L.marker(mapCenterTambah).addTo(map);
+
+    for (var i = 0; i < lokasiTambah.length; i++) {
+        marker = new L.marker([lokasiTambah[i][1], lokasiTambah[i][2]])
+            .bindPopup(lokasiTambah[i][0])
+            .addTo(map);
+    }
+
+    //untuk memberikan pin sesuai dengan klik mouse
 
     function updateMarker(lat, lng) {
         marker
@@ -77,5 +188,4 @@
     }
     $('#latInput').on('input', updateMarkerByInputs);
     $('#lngInput').on('input', updateMarkerByInputs);
-
 </script>

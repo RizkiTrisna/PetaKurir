@@ -19,4 +19,14 @@ class Peta extends Controller
         $this->view('peta/detail', $data);
         $this->view('templates/footer');
     }
+    public function tambah()
+    {
+        if($this->model('Peta_model')->tambahDataPeta($_POST) > 0){
+            header('Location: '. BASEURL .'/peta');
+            exit;
+        } else {
+            echo "<script>alert('Data Gagal ditambahkan');</script>";
+            // header('Location: '. BASEURL .'/peta');
+        }
+    }
 }

@@ -30,11 +30,18 @@
             padding-top: 60px;
         }
 
+        #wrapper-peta{
+            width: 100%;
+            height: 100%;
+        }
         #mapid {
             height: 700px;
         }
 
         #mapdetail {
+            height: 100%;
+        }
+        #maptambah {
             height: 100%;
         }
 
