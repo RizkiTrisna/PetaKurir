@@ -2,24 +2,23 @@
 
 class Peta_model
 {
-    private $dbh;
-    private $stmt;
+    private $table = 'tb_peta';
+    private $db;
 
     public function __construct()
     {
-        $dsn = 'mysql:host=localhost;dbname=petakurir';
-
-        try {
-            $this->dbh = new PDO($dsn, 'root', '');
-        } catch (PDOException $e) {
-            die($e->getMessage()); //hentikan pake die
-        }
+        $this->db = new Database;
     }
+
     public function getAllPeta()
     {
-        $this->stmt = $this->dbh->prepare('SELECT * FROM tb_peta');
-        $this->stmt->execute();
+        $this->db->query("SELECT * FROM $this->table");
+        return $this->db->resultSet();
+    }
 
-        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function getDetail($index){
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id_peta=:id_peta');
+        $this->db->bind('id_peta',$index);
+        return $this->db->single();
     }
 }
