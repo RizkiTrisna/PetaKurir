@@ -136,17 +136,13 @@
 </div>
 
 <script>
-    var lokasiTambah = [
-        ["LOCATION_1", 11.8166, 122.0942],
-        ["LOCATION_2", 11.9804, 121.9189],
-        ["LOCATION_3", 10.7202, 122.5621],
-        ["LOCATION_4", 11.3889, 122.6277],
-        ["LOCATION_5", 10.5929, 122.6325]
+    var locations = [
+        
     ];
 
-    var mapCenterTambah = [-7.983078, 112.635681];
+    var mapCenter = [-7.983078, 112.635681];
     var map = L.map('maptambah', {
-        center: mapCenterTambah,
+        center: mapCenter,
         zoom: 10
     });
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoicml6a2l0cmlzbmEiLCJhIjoiY2s5aW94N2dtMDR4MTNnbXNldXByenRueSJ9.w1vduTOwMrdBSO7zJsSF4w', {
@@ -158,11 +154,11 @@
         tileSize: 512,
         zoomOffset: -1
     }).addTo(map);
-    var marker = L.marker(mapCenterTambah).addTo(map);
+    var marker = L.marker(mapCenter).addTo(map);
 
-    for (var i = 0; i < lokasiTambah.length; i++) {
-        marker = new L.marker([lokasiTambah[i][1], lokasiTambah[i][2]])
-            .bindPopup(lokasiTambah[i][0])
+    for (var i = 0; i < locations.length; i++) {
+        marker = new L.marker([locations[i][1], locations[i][2]])
+            .bindPopup(locations[i][0])
             .addTo(map);
     }
 
@@ -180,6 +176,8 @@
         $('#latInput').val(e.latlng.lat);
         $('#lngInput').val(e.latlng.lng);
         updateMarker(e.latlng.lat, e.latlng.lng);
+        $('input[name=lat]').val(e.latlng.lat);
+        $('input[name=lon]').val(e.latlng.lng);
     });
 
 
