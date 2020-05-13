@@ -22,9 +22,9 @@ class Peta_model
         return $this->db->single();
     }
     public function cari($data){
-        
-        $this->db->query("SELECT * FROM " . $this->table . " WHERE nama_pemilik=:nama_pemilik");
-        $this->db->bind('nama_pemilik',$data['cari_peta']);
+        $key = $data['cari_peta'];
+        $this->db->query("SELECT * FROM " . $this->table . " WHERE nama_pemilik LIKE :nama_pemilik");
+        $this->db->bind('nama_pemilik', "%$key%");
         // var_dump($this->db);
         return $this->db->resultSet();
     }
