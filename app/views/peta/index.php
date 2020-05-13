@@ -1,9 +1,12 @@
 <div class="container">
     <div class="row pt-4">
-        <form class="form-inline mr-auto">
-            <input class="form-control mr-sm-2" type="text" placeholder="Cari di dalam tabel" aria-label="Search">
+        <form action="<?= BASEURL; ?>/peta/cari" method="POST" class="form-inline mr-auto">
+            <input class="form-control mr-sm-2" type="text" name="cari_peta" placeholder="Cari di dalam tabel" aria-label="Search">
             <button class="btn btn-unique btn-rounded btn-sm my-0" type="submit">Cari</button>
         </form>
+    </div>
+    <div class="row pt-4">
+        <?php Flasher::flash();?>
     </div>
     <div class="row pt-2">
 
@@ -20,6 +23,7 @@
             <tbody>
                 <?php
                 $no = 1;
+                // var_dump($data);
                 foreach ($data['peta'] as $peta) :
                 ?>
                     <tr>
@@ -28,7 +32,9 @@
                         <td><?= $peta['alamat_lengkap']; ?></td>
                         <td><?= date('d M Y', strtotime($peta['terakhir_dikunjungi'])); ?></td>
                         <td>
-                            <a href="<?= BASEURL; ?>/peta/detail/<?= $peta['id_peta']; ?>"><img src="<?= BASEURL; ?>/img/detail-btn.png" width="150" alt=""></a>
+                            <a href="<?= BASEURL; ?>/peta/detail/<?= $peta['id_peta']; ?>"><img src="<?= BASEURL; ?>/img/detail-btn.png" width="100" alt=""></a>
+                            <a href="#" data-toggle="modal" data-id="<?= $peta['id_peta'];?>" class="tampilModalUbah" data-target="#modalTambah"><img src="<?= BASEURL; ?>/img/ubah-btn.png" width="100" alt=""></a>
+                            <a href="<?= BASEURL; ?>/peta/hapus/<?= $peta['id_peta']; ?>" onclick="return confirm('Yakin ingin menghapus data?');"><img src="<?= BASEURL; ?>/img/delete-btn.png" width="100" alt=""></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -40,7 +46,7 @@
     <!-- <button type="button" style="background: url(<?= BASEURL; ?>/img/btn-add.png)" >
         
     </button> -->
-    <a type="button" data-toggle="modal" data-target="#modalTambah"><img src="<?= BASEURL; ?>/img/btn-add.png" id="fixedbutton"></a>
+    <a type="button" data-toggle="modal" data-target="#modalTambah" class="tampilModalTambah"><img src="<?= BASEURL; ?>/img/btn-add.png" id="fixedbutton"></a>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -75,6 +81,7 @@
 
                                 <form action="<?= BASEURL; ?>/peta/tambah" method="post">
                                     <div class="container" style="margin-top: 20px;">
+                                        <input type="hidden" class="form-control" name="id_peta" id="id_peta">
                                         <div class="form-group row">
                                             <label for="nama_pemilik" class="col-sm-4 col-form-label">Nama Pemilik Alamat</label>
                                             <div class="col-sm-8">
@@ -127,8 +134,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
-                <button type="submit" class="btn btn-primary">Tambah data</button>
+                <button type="button" class="btn btn-secondary " data-dismiss="modal">Batalkan</button>
+                <button type="submit" class="btn btn-primary btn-tambahData">Tambah data</button>
                 </form>
             </div>
         </div>

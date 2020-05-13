@@ -6,12 +6,10 @@
         <?php
 
         foreach ($data['peta'] as $peta) :
-        ?>
-            ["<?= $peta['nama_pemilik'];?>", <?= $peta['lat'];?>, <?= $peta['lon'];?>],
+        ?>["<?= $peta['nama_pemilik']; ?>", <?= $peta['lat']; ?>, <?= $peta['lon']; ?>],
         <?php
         endforeach;
-        ?>["LOCATION_1", 11.8166, 122.0942],
-        ["LOCATION_2", 11.9804, 121.9189]
+        ?>
     ];
 
     var mapCenter = [-7.983078, 112.635681];
@@ -28,7 +26,7 @@
         tileSize: 512,
         zoomOffset: -1
     }).addTo(map);
-    var marker = L.marker(mapCenter).addTo(map);
+    var marker;
 
     for (var i = 0; i < locations.length; i++) {
         marker = new L.marker([locations[i][1], locations[i][2]])
@@ -38,24 +36,24 @@
 
     //untuk memberikan pin sesuai dengan klik mouse
 
-    function updateMarker(lat, lng) {
-        marker
-            .setLatLng([lat, lng])
-            .bindPopup("Your location :  " + marker.getLatLng().toString())
-            .openPopup();
-        return false;
-    };
+    // function updateMarker(lat, lng) {
+    //     marker
+    //         .setLatLng([lat, lng])
+    //         .bindPopup("Your location :  " + marker.getLatLng().toString())
+    //         .openPopup();
+    //     return false;
+    // };
 
-    map.on('click', function(e) {
-        $('#latInput').val(e.latlng.lat);
-        $('#lngInput').val(e.latlng.lng);
-        updateMarker(e.latlng.lat, e.latlng.lng);
-    });
+    // map.on('click', function(e) {
+    //     $('#latInput').val(e.latlng.lat);
+    //     $('#lngInput').val(e.latlng.lng);
+    //     updateMarker(e.latlng.lat, e.latlng.lng);
+    // });
 
 
-    var updateMarkerByInputs = function() {
-        return updateMarker($('#latInput').val(), $('#lngInput').val());
-    }
-    $('#latInput').on('input', updateMarkerByInputs);
-    $('#lngInput').on('input', updateMarkerByInputs);
+    // var updateMarkerByInputs = function() {
+    //     return updateMarker($('#latInput').val(), $('#lngInput').val());
+    // }
+    // $('#latInput').on('input', updateMarkerByInputs);
+    // $('#lngInput').on('input', updateMarkerByInputs);
 </script>
