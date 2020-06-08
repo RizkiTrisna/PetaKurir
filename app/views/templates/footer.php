@@ -5,7 +5,7 @@
 <script src="<?= BASEURL; ?>/js/script.js"></script>
 
 <script>
-    $(".navbar .container . .nav-link").on("click", function() {
+    $(".navbar .container .nav-link").on("click", function() {
         $(".nav").find(".active").removeClas("active");
         $(this).addClass("active");
     });
